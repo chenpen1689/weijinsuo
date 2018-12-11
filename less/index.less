@@ -1,0 +1,364 @@
+/* 定义一个边框颜色的变量 */
+
+@border-color: #ccc;
+@a-color: #666;
+
+/* 微金所的默认的主题色 */
+
+@main-color: #e92322;
+html{
+
+}
+/* 头部区域样式 */
+
+#header {
+    border-bottom: 1px solid @border-color;
+    .row {
+        /* 使用标签选择器推荐使用子代 避免误杀后面的元素 */
+        > div {
+            line-height: 40px;
+            height: 40px;
+            font-size: 12px;
+            >a {
+                color: @a-color;
+                &.btn-danger {
+                    color: #fff;
+                }
+                &:hover{
+                    >img{
+                        display: block;
+                    }
+                }
+                >img{
+                    position: absolute;
+                    z-index: 1000;
+                    left: 50%;
+                    transform:translateX(-50%);
+                    top: 40px;
+                    display: none;
+                }
+            }
+            /* 表示选中当前元素的下一个兄弟元素 */
+            & + div {
+                border-left: 1px solid @border-color;
+            }
+        }
+    }
+}
+
+
+/* 轮播图区域的样式 */
+
+#slide {
+    .large-image {
+        /*大图要居中在页面中显示 高度是固定*/
+        /*width: 100%;*/
+        /*height: 410px;*/
+        background-position: center center;
+        width: 100%;
+        height: 410px;
+    }
+    .small-image {
+        /*小图需要全屏显示等比例缩放*/
+        width: 100%;
+    }
+}
+
+
+/* 导航条区域的样式 */
+
+#nav {
+    background-color: #fff;
+    margin-bottom: 0;
+    z-index: 999;
+    /* 设置top:0 因为默认导航条上面有一个头部区域 如果设置top值之前在哪个位置定位了也会在哪个位置 */
+    top: 0px;
+    /* 因为设置固定定位没有默认的100%宽度 需要手动添加100%宽度 */
+    width: 100%;
+    .navbar-header {
+        .navbar-toggle{
+            margin-top: 23px;
+        }
+        .navbar-brand {
+            height: 80px;
+            line-height: 50px;
+            .icon-icon {
+                font-size: 30px;
+                color: @main-color;
+            }
+            .icon-logo {
+                font-size: 30px;
+                color: #000;
+            }
+        }
+    }
+    .navbar-collapse {
+        .navbar-nav {
+            >li {
+                &.active {
+                    >a {
+                        background-color: #fff;
+                        border-bottom: 2px solid @main-color;
+                    }
+                }
+                >a {
+                    height: 80px;
+                    /* 因为a默认自带了上下15px padding导致内容只有50px高度 行高只能写50px */
+                    line-height: 48px;
+                    &:hover {
+                        border-bottom: 2px solid @main-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* 特色介绍区域样式 */
+
+#feature {
+    /* 父元素和子元素直接的间距使用padding */
+    padding: 40px 0;
+    .media {
+        /* 兄弟和兄弟直接的间距使用margin */
+        margin-bottom: 10px;
+        a {
+            color: @a-color;
+            text-decoration: none;
+            &:hover {
+                color: @main-color;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+
+/* 立即预约区域样式 */
+
+#booking {
+    border-top: 1px solid @border-color;
+    border-bottom: 1px solid @border-color;
+    /* 缩小了会有多行文本 推荐使用padding */
+    padding: 20px;
+    .text-danger {
+        color: @main-color;
+    }
+}
+
+
+/* 商品区域样式 */
+
+#products {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+    .nav-tabs {
+        >li {
+            &.active {
+                >a {
+                    background-color: transparent;
+                    border-bottom: 3px solid @main-color;
+                }
+            }
+            >a {
+                border: 0;
+                font-size: 16px;
+                color: @a-color;
+                height: 45px;
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+    }   
+    .product {
+        margin-top: 20px;
+        background-color: #fff;                       
+        /* 使用flex伸缩布局 左边flex:1 自适应 右边宽度固定 */
+        display: flex;
+        /* display: table; */
+        &.red {
+            background-color: @main-color;
+            color: #fff;
+            position: relative;
+            &::before {
+                /* 实现一个图标 使用图标编码 和 图标的字体 */
+                content: "\e915";
+                font-family: 'itcast';
+                font-size: 30px;
+                position: absolute;
+                left: 0px;
+                top: -6px;
+            }
+        }
+        .left {
+            flex: 1;
+            padding: 15px;
+            height: 160px;
+            .col-xs-6 {
+                margin-bottom: 10px;
+            }
+            p {
+                /* 去掉p元素默认的底部间距 */
+                margin-bottom: 0px;
+            }
+        }
+        .right {
+            border-left: 1px dashed @border-color;
+            width: 120px;
+            /* 使用媒体查询判断如果屏幕宽度在320-360宽度之间让右边盒子宽变小成100px */
+            @media(min-width:320px) and (max-width:360px){
+                width: 100px;
+            }
+            /* 使用媒体查询判断如果屏幕宽度在992-1200宽度之间让右边盒子宽变小成100px */
+            @media(min-width:992px) and (max-width:1200px){
+                width: 100px;
+            }
+            height: 160px;
+            /* 使用伸缩布局让内容水平垂直居中 */
+            display: flex;
+            /* 让主轴沿着垂直方向 */
+            flex-direction: column;
+            /* 主轴垂直居中 */
+            justify-content: center;
+            /* 侧轴水平方向居中 */
+            align-items: center;
+            /* display:table-cell;
+            vertical-align: middle;
+            text-align: center; */
+            >p {
+                margin-bottom: 0;
+                >strong {
+                    font-size: 30px;
+                }
+            }
+            position: relative;
+            &::before,
+            &::after {
+                content: '';
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                position: absolute;
+                left: -8px;
+                background-color: #f5f5f5;
+            }
+            &::before {
+                top: -8px;
+            }
+            &::after {
+                bottom: -8px;
+            }
+            .tooltips{
+                position: absolute;
+                top: 20px;
+                /* 注意如果工具 提示的父元素宽度不够 提示信息就会换行 
+                解决方案就是让工具提示的父元素有比较大的宽度 */
+                width: 100%;
+                text-align: center;
+                >button{
+                    &:first-of-type{
+                        border:1px solid green;
+                        color:green;
+                        background-color: #fff;
+                    }
+                    /* 选中最后一个按钮类型的元素  排除其他标签*/
+                    &:last-of-type{
+                         border:1px solid @main-color;
+                         color:@main-color;
+                         background-color: #fff;
+                    }
+                }
+            }
+        }
+    }                
+}
+
+
+/* 新闻区域的样式 */
+#news{
+    padding: 40px 0px;
+    .news-title{
+        border-bottom: 1px dashed @border-color;
+        line-height: 40px;
+        position: relative;
+        &::after{
+            content:'';
+            width: 10px;
+            height: 10px;
+            border-radius:50%;
+            border:1px solid @border-color;
+            position: absolute;
+            right: -10px;
+            bottom: -5px;
+        }
+    }
+    .nav-tabs{
+        border-bottom: 0px;
+        >li{
+            &.active{
+                >a{
+                    background-color: @main-color;
+                }
+            }
+            /* 判断屏幕宽度在中屏以下的时候让每个li占1/4  里面的a固定宽度居中 */
+            @media(max-width:992px){
+                width: 25%;
+                >a{
+                    width: 60px;
+                    margin: 0px auto;
+                }
+            }
+            >a{
+                border-radius:50%;
+                color:#ccc;
+                margin-bottom: 20px;
+                border:0;
+                &:hover{
+                    background-color: @main-color;
+                }
+                >i{
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+    .tab-content{
+        .tab-pane{
+            >ul{
+                >li{
+                    list-style: none;
+                    > a{
+                        color:@a-color;
+                        text-decoration: none;
+                        line-height: 40px;
+                    }
+                }
+            }
+        }
+    }        
+}
+
+/* 合作伙伴区域样式 */
+#partner{
+    ul{
+        display:flex;
+        /* 当一行放不下9个的时候能自动换行 */
+        flex-wrap:wrap;
+        >li{
+            flex:1;
+            list-style: none;
+            >a{
+                color:@a-color;
+                text-decoration: none;
+                &:hover{
+                    color:@main-color;
+                }
+                i{
+                    font-size: 60px;
+                }
+            }
+        }
+    }
+}
